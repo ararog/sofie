@@ -1,3 +1,5 @@
+use std::future::Future;
+
 use log::error;
 use vetis::{RequestType, ResponseType, Vetis, server::{config::ServerConfig, errors::VetisError}};
 

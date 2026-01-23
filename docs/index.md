@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Sophia - The elegant full-stack web framework
+title: Sofie - The elegant full-stack web framework
 nav_order: 1
 description: "🌟 The elegant full-stack web framework that makes Rust web development effortless"
 permalink: /
 ---
 <div align="center">
-<h1><b>Sophia</b></h1>
+<h1><b>Sofie</b></h1>
 </div>
 
-[![crates.io](https://img.shields.io/crates/v/sophia?style=flat-square)](https://crates.io/crates/sophia) 
-[![Build Status](https://github.com/ararog/sophia/actions/workflows/rust.yml/badge.svg?event=push)](https://github.com/ararog/sophia/actions/workflows/rust.yml) 
+[![crates.io](https://img.shields.io/crates/v/sofie?style=flat-square)](https://crates.io/crates/sofie) 
+[![Build Status](https://github.com/ararog/sofie/actions/workflows/rust.yml/badge.svg?event=push)](https://github.com/ararog/sofie/actions/workflows/rust.yml) 
 [![Documentation](https://docs.rs/deboa/badge.svg)](https://docs.rs/deboa/latest/deboa)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -53,13 +53,13 @@ Add to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-sophia = { version = "0.0.9", features = ["http1", "tokio-rt"] }
+sofie = { version = "0.0.9", features = ["http1", "tokio-rt"] }
 ```
 
 Basic usage:
 
 ```rust
-use sophia::Sophia;
+use sofie::App;
 use http_body_util::{Full};
 use bytes::Bytes;
 use hyper::Response;
@@ -68,9 +68,9 @@ use hyper::Response;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     std_logger::Config::logfmt().init();
 
-    let mut sophia = Sophia::new(config);
+    let mut app = App::new();
 
-    sophia.serve(|_| async move {
+    app.serve(|_| async move {
         Ok(Response::new(Full::new(Bytes::from("Hello World"))))
     }).await?;
 
@@ -86,12 +86,11 @@ Check out the [examples](./examples.md) for complete examples of how to use Soph
 
 You can create a new project from the template using `cargo generate`:
 
-`cargo generate ararog/sophia-templates`
+`cargo generate ararog/sofie-templates`
 
 ## Documentation
 
-- [API Reference](https://docs.rs/sophia)
-- [Migration Guide](./MIGRATION_GUIDE.md)
+- [API Reference](https://docs.rs/sofie)
 - [Contributing Guide](./CONTRIBUTING.md)
 
 ## License

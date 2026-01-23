@@ -6,19 +6,19 @@ use vetis::{
     RequestType, ResponseType, Vetis,
 };
 
-use crate::errors::SophiaError;
+use crate::errors::SofieError;
 
 pub mod errors;
 mod tests;
 
-pub struct Sophia {}
+pub struct App {}
 
-impl Sophia {
-    pub fn new() -> Sophia {
-        Sophia {}
+impl App {
+    pub fn new() -> App {
+        App {}
     }
 
-    pub async fn serve<F, Fut>(&mut self, handler: F) -> Result<(), SophiaError>
+    pub async fn serve<F, Fut>(&mut self, handler: F) -> Result<(), SofieError>
     where
         F: Fn(RequestType) -> Fut + Send + Sync + 'static,
         Fut: Future<Output = Result<ResponseType, VetisError>> + Send + 'static,
@@ -39,7 +39,7 @@ impl Sophia {
 
         if let Err(e) = result {
             error!("Failed to start server: {}", e);
-            return Err(SophiaError::ServerStart(e.to_string()));
+            return Err(SofieError::ServerStart(e.to_string()));
         }
 
         Ok(())

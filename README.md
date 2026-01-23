@@ -1,10 +1,10 @@
-# Sophia
+# Sofie
 
 🌟 **The elegant full-stack web framework that makes Rust web development effortless**
 
-**Sophia** is a comprehensive, production-ready web framework for Rust that combines simplicity with power. Built on top of VeTiS, it provides everything you need to build modern web applications - from REST APIs to full-featured web services - with a clean, intuitive API that makes development a joy.
+**Sofie** is a comprehensive, production-ready web framework for Rust that combines simplicity with power. Built on top of VeTiS, it provides everything you need to build modern web applications - from REST APIs to full-featured web services - with a clean, intuitive API that makes development a joy.
 
-## ✨ Why Sophia?
+## ✨ Why Sofie?
 
 - **🎯 Developer Experience**: Ergonomic API design that feels natural and intuitive
 - **⚡ High Performance**: Powered by VeTiS for blazing-fast request handling
@@ -15,18 +15,18 @@
 
 ## 🛠️ Quick Start
 
-Add Sophia to your `Cargo.toml`:
+Add Sofie to your `Cargo.toml`:
 
 ```rust
-sophia = { version = "0.1.0", features = ["vetis"] }
+sofie = { version = "0.1.0", features = ["vetis"] }
 ```
 
 ## 💡 Usage Example
 
-Here's how simple it is to create a web application with Sophia:
+Here's how simple it is to create a web application with Sofie:
 
 ```rust
-use sophia::Sophia;
+use sofie::Sofie;
 use http_body_util::{Full};
 use bytes::Bytes;
 use hyper::Response;

@@ -1,18 +1,18 @@
-# sophia
+# sofie
 
-**Sophia** is a comprehensive, production-ready web framework for Rust that combines simplicity with power. Built on top of VeTiS, it provides everything you need to build modern web applications - from REST APIs to full-featured web services - with a clean, intuitive API that makes development a joy.
+**Sofie** is a comprehensive, production-ready web framework for Rust that combines simplicity with power. Built on top of VeTiS, it provides everything you need to build modern web applications - from REST APIs to full-featured web services - with a clean, intuitive API that makes development a joy.
 
 ## Installation
 
 ```toml
 [dependencies]
-sophia = { version = "0.0.9", features = ["http1", "tokio-rt"] }
+sofie = { version = "0.0.9", features = ["http1", "tokio-rt"] }
 ```
 
 ## quickstart
 
 ```rust
-use sophia::Sophia;
+use sofie::App;
 use http_body_util::{Full};
 use bytes::Bytes;
 use hyper::Response;
@@ -21,9 +21,9 @@ use hyper::Response;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     std_logger::Config::logfmt().init();
 
-    let mut sophia = Sophia::new(config);
+    let mut app = App::new();
 
-    sophia.serve(|_| async move {
+    app.serve(|_| async move {
         Ok(Response::new(Full::new(Bytes::from("Hello World"))))
     }).await?;
 
@@ -33,7 +33,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ## 🗺️ Roadmap
 
-Sophia is continuously evolving! Here's what we're working on:
+Sofie is continuously evolving! Here's what we're working on:
 
 ### Security & Authentication
 

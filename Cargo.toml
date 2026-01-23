@@ -1,10 +1,10 @@
 [package]
-name = "Sophia"
+name = "sofie"
 version = "0.1.0"
 edition = "2021"
 authors = ["Rogerio Araújo <rogerio.araujo@gmail.com>"]
-repository = "https://github.com/ararog/sophia"
-homepage = "https://github.com/ararog/sophia"
+repository = "https://github.com/ararog/sofie"
+homepage = "https://github.com/ararog/sofie"
 description = "Very Tiny Server"
 readme = "README.md"
 license = "MIT"
@@ -17,9 +17,9 @@ bytes = "1.11.0"
 clap = { version = "4.5.54", features = ["derive"] }
 http = "1.4.0"
 http-body-util = "0.1.3"
-hyper = { version = "1.8.1", features = ["full"] }
+hyper = { version = "1.8.1", features = ["server"] }
 hyper-util = "0.1.19"
 log = "0.4.29"
 thiserror = "2.0.18"
 vetis = "0.1.1"
-tokio = { version = "1.0", features = ["full"] }
+tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }

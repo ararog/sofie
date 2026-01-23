@@ -1,20 +1,20 @@
 #[cfg(test)]
-mod sophia_tests {
-    use crate::Sophia;
+mod sofie_tests {
+    use crate::App;
 
     #[test]
-    fn test_sophia_new() {
-        let _sophia = Sophia::new();
+    fn test_sofie_new() {
+        let _sofie = App::new();
         // Test that Sophia can be created successfully
         // Since Sophia is a simple struct with no fields, this just verifies it doesn't panic
-        assert_eq!(std::mem::size_of::<Sophia>(), 0);
+        assert_eq!(std::mem::size_of::<App>(), 0);
     }
 
     #[test]
     fn test_sophia_default() {
         // Test that we can create multiple instances
-        let sophia1 = Sophia::new();
-        let sophia2 = Sophia::new();
+        let sophia1 = App::new();
+        let sophia2 = App::new();
 
         // Both should be the same size (zero-sized struct)
         assert_eq!(std::mem::size_of_val(&sophia1), 0);
@@ -23,24 +23,24 @@ mod sophia_tests {
 
     #[test]
     fn test_sophia_send_sync() {
-        // Test that Sophia implements Send and Sync
+        // Test that sofie implements Send and Sync
         fn assert_send_sync<T: Send + Sync>() {}
-        assert_send_sync::<Sophia>();
+        assert_send_sync::<App>();
     }
 
     #[test]
     fn test_sophia_clone() {
         // Test that Sophia can be cloned (since it's zero-sized)
-        let sophia1 = Sophia::new();
+        let sophia1 = App::new();
         let _sophia2 = sophia1;
         // Sophia is automatically Copy because it's zero-sized
-        let _sophia3 = Sophia::new(); // Create a new instance instead
+        let _sophia3 = App::new(); // Create a new instance instead
     }
 }
 
 #[cfg(test)]
 mod sophia_integration_tests {
-    use crate::Sophia;
+    use crate::App;
 
     #[tokio::test]
     async fn test_sophia_handler_signature() {
@@ -65,7 +65,7 @@ mod sophia_integration_tests {
     #[tokio::test]
     async fn test_sophia_configuration() {
         // Test that Sophia can be configured with different scenarios
-        let mut sophia = Sophia::new();
+        let mut sophia = App::new();
 
         // Test that we can create the server configuration
         let config = vetis::server::config::ServerConfig::builder()
@@ -86,9 +86,9 @@ mod sophia_integration_tests {
     #[tokio::test]
     async fn test_sophia_error_handling() {
         // Test error handling scenarios
-        use crate::errors::SophiaError;
+        use crate::errors::SofieError;
 
-        let error = SophiaError::ServerStart("Test error".to_string());
+        let error = SofieError::ServerStart("Test error".to_string());
 
         // Test error display
         let display_str = format!("{}", error);
@@ -100,18 +100,18 @@ mod sophia_integration_tests {
         assert!(debug_str.contains("ServerStart"));
 
         // Test error equality
-        let error2 = SophiaError::ServerStart("Test error".to_string());
+        let error2 = SofieError::ServerStart("Test error".to_string());
         assert_eq!(error, error2);
 
-        let error3 = SophiaError::ServerStart("Different error".to_string());
+        let error3 = SofieError::ServerStart("Different error".to_string());
         assert_ne!(error, error3);
     }
 
     #[tokio::test]
     async fn test_sophia_multiple_instances() {
-        // Test creating multiple Sophia instances
-        let sophia_instances: Vec<Sophia> = (0..5)
-            .map(|_| Sophia::new())
+        // Test creating multiple Sofie instances
+        let sophia_instances: Vec<App> = (0..5)
+            .map(|_| App::new())
             .collect();
 
         // All instances should be valid

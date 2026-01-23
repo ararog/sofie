@@ -1,4 +1,4 @@
-use sophia::Sophia;
+use sofie::App;
 use http_body_util::{Full};
 use bytes::Bytes;
 use hyper::Response;
@@ -7,9 +7,9 @@ use hyper::Response;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     std_logger::Config::logfmt().init();
 
-    let mut sophia = Sophia::new(config);
+    let mut app = App::new();
 
-    sophia.serve(|_| async move {
+    app.serve(|_| async move {
         Ok(Response::new(Full::new(Bytes::from("Hello World"))))
     }).await?;
 

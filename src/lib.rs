@@ -9,6 +9,7 @@ use vetis::{
 use crate::errors::SophiaError;
 
 pub mod errors;
+mod tests;
 
 pub struct Sophia {}
 

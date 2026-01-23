@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Sophia - A Rust HTTP Client
+title: Sophia - The elegant full-stack web framework
 nav_order: 1
-description: "A straightforward, non-opinionated, developer-centric HTTP client library for Rust"
+description: "🌟 The elegant full-stack web framework that makes Rust web development effortless"
 permalink: /
 ---
 <div align="center">

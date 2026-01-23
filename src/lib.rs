@@ -32,7 +32,9 @@ impl Sophia {
 
         let mut server = Vetis::new(config);
 
-        let result = server.run(handler).await;
+        let result = server
+            .run(handler)
+            .await;
 
         if let Err(e) = result {
             error!("Failed to start server: {}", e);

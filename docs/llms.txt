@@ -1,0 +1,65 @@
+# sophia
+
+**Sophia** is a comprehensive, production-ready web framework for Rust that combines simplicity with power. Built on top of VeTiS, it provides everything you need to build modern web applications - from REST APIs to full-featured web services - with a clean, intuitive API that makes development a joy.
+
+## Installation
+
+```toml
+[dependencies]
+sophia = { version = "0.0.9", features = ["http1", "tokio-rt"] }
+```
+
+## quickstart
+
+```rust
+use sophia::Sophia;
+use http_body_util::{Full};
+use bytes::Bytes;
+use hyper::Response;
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    std_logger::Config::logfmt().init();
+
+    let mut sophia = Sophia::new(config);
+
+    sophia.serve(|_| async move {
+        Ok(Response::new(Full::new(Bytes::from("Hello World"))))
+    }).await?;
+
+    Ok(())
+}
+```
+
+## 🗺️ Roadmap
+
+Sophia is continuously evolving! Here's what we're working on:
+
+### Security & Authentication
+
+- **🔐 Authentication** - Multiple auth methods (JWT, OAuth, Session)
+- **🛡️ Authorization** - Role-based access control
+- **🔒 CSRF Protection** - Cross-site request forgery prevention
+
+### Middleware & Features
+
+- **🔌 Middleware System** - Composable request/response processing
+- **⚡ Rate Limiting** - Protect against abuse and DoS attacks
+- **📝 Sessions** - User session management
+- **🌐 CORS** - Cross-origin resource sharing support
+
+### Real-time & Monitoring
+
+- **🔌 WebSocket** - Real-time bidirectional communication
+- **📊 Metrics** - Application performance monitoring
+- **📝 Logging** - Structured logging integration
+- **🔍 Tracing** - Distributed tracing support
+
+### AI & Future
+
+- **🤖 AI Agents** - Built-in AI service integration
+- **🚀 Advanced Features** - Cutting-edge web technologies
+
+## Blog Posts
+
+- Coming soon

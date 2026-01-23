@@ -14,13 +14,13 @@ permalink: /
 [![Documentation](https://docs.rs/deboa/badge.svg)](https://docs.rs/deboa/latest/deboa)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Sophia** is a comprehensive, production-ready web framework for Rust that combines simplicity with power. Built on top of VeTiS, it provides everything you need to build modern web applications - from REST APIs to full-featured web services - with a clean, intuitive API that makes development a joy.
+**Sofie** is a comprehensive, production-ready web framework for Rust that combines simplicity with power. Built on top of VeTiS, it provides everything you need to build modern web applications - from REST APIs to full-featured web services - with a clean, intuitive API that makes development a joy.
 
 Built on top of [hyper](https://github.com/hyperium/hyper).
 
 ## 🗺️ Roadmap
 
-Sophia is continuously evolving! Here's what we're working on:
+Sofie is continuously evolving! Here's what we're working on:
 
 ### Security & Authentication
 

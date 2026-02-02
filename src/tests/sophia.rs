@@ -40,6 +40,8 @@ mod sofie_tests {
 
 #[cfg(test)]
 mod sophia_integration_tests {
+    use vetis::config::{ListenerConfig, ServerConfig};
+
     use crate::App;
 
     #[tokio::test]
@@ -49,8 +51,8 @@ mod sophia_integration_tests {
 
         // Define a simple handler function that matches the expected signature
         async fn test_handler(
-            _req: vetis::RequestType,
-        ) -> Result<vetis::ResponseType, Box<dyn std::error::Error + Send + Sync>> {
+            _req: vetis::Request,
+        ) -> Result<vetis::Response, Box<dyn std::error::Error + Send + Sync>> {
             // Return a simple error since we can't create ResponseType easily
             Err("Test error".into())
         }
@@ -67,15 +69,24 @@ mod sophia_integration_tests {
         // Test that Sophia can be configured with different scenarios
         let mut sophia = App::new();
 
-        // Test that we can create the server configuration
-        let config = vetis::server::config::ServerConfig::builder()
+        let listener_config = ListenerConfig::builder()
             .port(8080)
-            .interface("127.0.0.1".to_string())
+            .interface("127.0.0.1")
+            .build();
+
+        let config = ServerConfig::builder()
+            .add_listener(listener_config)
             .build();
 
         // Verify the config was created successfully
-        assert_eq!(config.port(), 8080);
-        assert_eq!(config.interface(), "127.0.0.1");
+        assert_eq!(
+            config
+                .listeners()
+                .len(),
+            1
+        );
+        assert_eq!(config.listeners()[0].port(), 8080);
+        assert_eq!(config.listeners()[0].interface(), "127.0.0.1");
 
         // Test that Sophia can work with this configuration
         // (We don't actually start the server to avoid port conflicts)

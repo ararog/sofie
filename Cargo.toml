@@ -1,6 +1,6 @@
 [package]
 name = "sofie"
-version = "0.0.2"
+version = "0.0.3"
 edition = "2021"
 authors = ["Rogerio Araújo <rogerio.araujo@gmail.com>"]
 repository = "https://github.com/ararog/sofie"
@@ -12,6 +12,19 @@ keywords = ["framework", "backend", "rest-server", "rest"]
 publish = true
 rust-version = "1.64.0"
 
+[features]
+default = ["tokio-rt", "http1", "tokio-rust-tls"]
+
+tokio-rt = ["vetis/tokio-rt"]
+smol-rt = ["vetis/smol-rt"]
+
+tokio-rust-tls = ["vetis/tokio-rust-tls"]
+smol-rust-tls = ["vetis/smol-rust-tls"]
+
+http1 = ["vetis/http1"]
+http2 = ["vetis/http2"]
+http3 = ["vetis/http3"]
+
 [dependencies]
 bytes = "1.11.0"
 clap = { version = "4.5.55", features = ["derive"] }
@@ -21,5 +34,5 @@ hyper = { version = "1.8.1", features = ["server"] }
 hyper-util = "0.1.19"
 log = "0.4.29"
 thiserror = "2.0.18"
-vetis = "0.1.3"
+vetis = "0.1.4-beta.1"
 tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }

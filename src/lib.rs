@@ -75,13 +75,16 @@ impl App {
             .map_err(|e| SofieError::ServerStart(e.to_string()))?;
 
         let mut virtual_host = VirtualHost::new(localhost_config);
-        virtual_host.add_path(HandlerPath::new_host_path(
-            "/",
-            handler_fn(move |_req| {
-                let value = handler.clone();
-                async move { value(_req).await }
-            }),
-        ));
+        virtual_host.add_path(
+            HandlerPath::builder()
+                .uri("/")
+                .handler(handler_fn(move |_req| {
+                    let value = handler.clone();
+                    async move { value(_req).await }
+                }))
+                .build()
+                .map_err(|e| SofieError::ServerStart(e.to_string()))?,
+        );
 
         self.server
             .add_virtual_host(virtual_host)

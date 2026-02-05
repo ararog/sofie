@@ -1,17 +1,15 @@
-use sofie::App;
-use http_body_util::{Full};
-use bytes::Bytes;
-use hyper::Response;
+use sofie::{
+    App, Response,
+};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    std_logger::Config::logfmt().init();
+    env_logger::Builder::from_env(env_logger::Env::default().filter_or("RUST_LOG", "info")).init();
 
-    let mut app = App::new();
+    let mut app = App::default();
 
-    app.serve(|_| async move {
-        Ok(Response::new(Full::new(Bytes::from("Hello World"))))
-    }).await?;
+    app.serve(|req| async move { Ok(Response::builder().text("Hello World")) })
+        .await?;
 
     Ok(())
 }

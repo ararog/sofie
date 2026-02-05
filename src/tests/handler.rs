@@ -1,35 +1,37 @@
 #[cfg(test)]
 mod handler_tests {
-    use bytes::Bytes;
-    use http_body_util::Full;
-    use hyper::{Response, StatusCode};
-
-    type TestResponseType = Response<Full<Bytes>>;
+    use http::HeaderValue;
+    use hyper::StatusCode;
+    use vetis::Response;
 
     #[tokio::test]
     async fn test_response_creation() {
-        // Test that we can create basic HTTP responses
-        let response: TestResponseType = Response::builder()
+        let response: Response = Response::builder()
             .status(StatusCode::OK)
-            .body(Full::new(Bytes::from("Hello, World!")))
-            .unwrap();
+            .text("Hello, World!");
 
-        assert_eq!(response.status(), StatusCode::OK);
+        assert_eq!(
+            response
+                .into_inner()
+                .status(),
+            StatusCode::OK
+        );
     }
 
     #[tokio::test]
     async fn test_json_response() {
         let json_data = r#"{"message": "Hello from Sophia", "status": "success"}"#;
 
-        let response: TestResponseType = Response::builder()
+        let response: Response = Response::builder()
             .status(StatusCode::OK)
-            .header("Content-Type", "application/json")
-            .body(Full::new(Bytes::from(json_data)))
-            .unwrap();
+            .header("Content-Type", HeaderValue::from_static("application/json"))
+            .text(json_data);
 
-        assert_eq!(response.status(), StatusCode::OK);
+        let inner_response = response.into_inner();
+
+        assert_eq!(inner_response.status(), StatusCode::OK);
         assert_eq!(
-            response
+            inner_response
                 .headers()
                 .get("Content-Type")
                 .unwrap(),
@@ -39,33 +41,38 @@ mod handler_tests {
 
     #[tokio::test]
     async fn test_error_response() {
-        let response: TestResponseType = Response::builder()
+        let response: Response = Response::builder()
             .status(StatusCode::INTERNAL_SERVER_ERROR)
-            .body(Full::new(Bytes::from("Internal Server Error")))
-            .unwrap();
+            .text("Internal Server Error");
 
-        assert_eq!(response.status(), StatusCode::INTERNAL_SERVER_ERROR);
+        assert_eq!(
+            response
+                .into_inner()
+                .status(),
+            StatusCode::INTERNAL_SERVER_ERROR
+        );
     }
 
     #[tokio::test]
     async fn test_response_with_headers() {
-        let response: TestResponseType = Response::builder()
+        let response: Response = Response::builder()
             .status(StatusCode::OK)
-            .header("X-Custom-Header", "test-value")
-            .header("Cache-Control", "no-cache")
-            .body(Full::new(Bytes::from("Response with headers")))
-            .unwrap();
+            .header("X-Custom-Header", HeaderValue::from_static("test-value"))
+            .header("Cache-Control", HeaderValue::from_static("no-cache"))
+            .text("Response with headers");
 
-        assert_eq!(response.status(), StatusCode::OK);
+        let inner_response = response.into_inner();
+
+        assert_eq!(inner_response.status(), StatusCode::OK);
         assert_eq!(
-            response
+            inner_response
                 .headers()
                 .get("X-Custom-Header")
                 .unwrap(),
             "test-value"
         );
         assert_eq!(
-            response
+            inner_response
                 .headers()
                 .get("Cache-Control")
                 .unwrap(),
@@ -75,12 +82,13 @@ mod handler_tests {
 
     #[tokio::test]
     async fn test_empty_response() {
-        let response: TestResponseType = Response::builder()
+        let response: Response = Response::builder()
             .status(StatusCode::NO_CONTENT)
-            .body(Full::new(Bytes::new()))
-            .unwrap();
+            .text("");
 
-        assert_eq!(response.status(), StatusCode::NO_CONTENT);
+        let inner_response = response.into_inner();
+
+        assert_eq!(inner_response.status(), StatusCode::NO_CONTENT);
     }
 
     #[tokio::test]
@@ -98,12 +106,13 @@ mod handler_tests {
         ];
 
         for status in status_codes {
-            let response: TestResponseType = Response::builder()
+            let response: Response = Response::builder()
                 .status(status)
-                .body(Full::new(Bytes::from("Test response")))
-                .unwrap();
+                .text("Test response");
 
-            assert_eq!(response.status(), status);
+            let inner_response = response.into_inner();
+
+            assert_eq!(inner_response.status(), status);
         }
     }
 
@@ -111,23 +120,29 @@ mod handler_tests {
     async fn test_large_response() {
         let large_data = "x".repeat(100_000); // 100KB of data
 
-        let response: TestResponseType = Response::builder()
+        let response: Response = Response::builder()
             .status(StatusCode::OK)
             .header(
                 "Content-Length",
-                large_data
-                    .len()
-                    .to_string(),
+                HeaderValue::from_str(
+                    &large_data
+                        .len()
+                        .to_string(),
+                )
+                .unwrap(),
             )
-            .body(Full::new(Bytes::from(large_data)))
-            .unwrap();
+            .text(&large_data);
 
-        assert_eq!(response.status(), StatusCode::OK);
+        assert_eq!(
+            response
+                .into_inner()
+                .status(),
+            StatusCode::OK
+        );
     }
 
     #[tokio::test]
     async fn test_async_operations() {
-        // Test async operations that might happen in handlers
         let result = async {
             tokio::time::sleep(std::time::Duration::from_millis(10)).await;
             "Async result"
@@ -139,65 +154,74 @@ mod handler_tests {
 
     #[tokio::test]
     async fn test_handler_function() {
-        // Test that we can define a function that could be used as a handler
-        async fn test_handler() -> TestResponseType {
+        async fn test_handler() -> Response {
             Response::builder()
                 .status(StatusCode::OK)
-                .body(Full::new(Bytes::from("Handler response")))
-                .unwrap()
+                .text("Handler response")
         }
 
         let response = test_handler().await;
-        assert_eq!(response.status(), StatusCode::OK);
+        assert_eq!(
+            response
+                .into_inner()
+                .status(),
+            StatusCode::OK
+        );
     }
 }
 
 #[cfg(test)]
 mod handler_integration_tests {
-    use bytes::Bytes;
-    use http_body_util::Full;
-    use hyper::{Response, StatusCode};
-
-    type TestResponseType = Response<Full<Bytes>>;
+    use http::HeaderValue;
+    use hyper::StatusCode;
+    use vetis::Response;
 
     #[tokio::test]
     async fn test_rest_api_patterns() {
-        // Test common REST API response patterns
-
-        // Success response
-        let success_response: TestResponseType = Response::builder()
+        let success_response: Response = Response::builder()
             .status(StatusCode::OK)
-            .header("Content-Type", "application/json")
-            .body(Full::new(Bytes::from(r#"{"status": "success", "data": {}}"#)))
-            .unwrap();
-        assert_eq!(success_response.status(), StatusCode::OK);
+            .header("Content-Type", HeaderValue::from_static("application/json"))
+            .text(r#"{"status": "success", "data": {}}"#);
+        assert_eq!(
+            success_response
+                .into_inner()
+                .status(),
+            StatusCode::OK
+        );
 
-        // Created response
-        let created_response: TestResponseType = Response::builder()
+        let created_response: Response = Response::builder()
             .status(StatusCode::CREATED)
-            .header("Content-Type", "application/json")
-            .header("Location", "/api/users/123")
-            .body(Full::new(Bytes::from(r#"{"id": 123, "created": true}"#)))
-            .unwrap();
-        assert_eq!(created_response.status(), StatusCode::CREATED);
+            .header("Content-Type", HeaderValue::from_static("application/json"))
+            .header("Location", HeaderValue::from_static("/api/users/123"))
+            .text(r#"{"id": 123, "created": true}"#);
+        assert_eq!(
+            created_response
+                .into_inner()
+                .status(),
+            StatusCode::CREATED
+        );
 
-        // Error response
-        let error_response: TestResponseType = Response::builder()
+        let error_response: Response = Response::builder()
             .status(StatusCode::BAD_REQUEST)
-            .header("Content-Type", "application/json")
-            .body(Full::new(Bytes::from(r#"{"error": "Bad Request", "message": "Invalid input"}"#)))
-            .unwrap();
-        assert_eq!(error_response.status(), StatusCode::BAD_REQUEST);
+            .header("Content-Type", HeaderValue::from_static("application/json"))
+            .text(r#"{"error": "Bad Request", "message": "Invalid input"}"#);
+        assert_eq!(
+            error_response
+                .into_inner()
+                .status(),
+            StatusCode::BAD_REQUEST
+        );
 
-        // Not found response
-        let not_found_response: TestResponseType = Response::builder()
+        let not_found_response: Response = Response::builder()
             .status(StatusCode::NOT_FOUND)
-            .header("Content-Type", "application/json")
-            .body(Full::new(Bytes::from(
-                r#"{"error": "Not Found", "message": "Resource not found"}"#,
-            )))
-            .unwrap();
-        assert_eq!(not_found_response.status(), StatusCode::NOT_FOUND);
+            .header("Content-Type", HeaderValue::from_static("application/json"))
+            .text(r#"{"error": "Not Found", "message": "Resource not found"}"#);
+        assert_eq!(
+            not_found_response
+                .into_inner()
+                .status(),
+            StatusCode::NOT_FOUND
+        );
     }
 
     #[tokio::test]
@@ -210,15 +234,16 @@ mod handler_integration_tests {
         ];
 
         for (content_type, body) in content_types {
-            let response: TestResponseType = Response::builder()
+            let response: Response = Response::builder()
                 .status(StatusCode::OK)
-                .header("Content-Type", content_type)
-                .body(Full::new(Bytes::from(body)))
-                .unwrap();
+                .header("Content-Type", HeaderValue::from_static(content_type))
+                .text(body);
 
-            assert_eq!(response.status(), StatusCode::OK);
+            let inner_response = response.into_inner();
+
+            assert_eq!(inner_response.status(), StatusCode::OK);
             assert_eq!(
-                response
+                inner_response
                     .headers()
                     .get("Content-Type")
                     .unwrap(),
@@ -229,32 +254,31 @@ mod handler_integration_tests {
 
     #[tokio::test]
     async fn test_response_chaining() {
-        // Simulate a chain of operations that might happen in a real handler
-
         async fn process_request() -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
-            // Simulate validation
             tokio::time::sleep(std::time::Duration::from_millis(1)).await;
 
-            // Simulate business logic
             tokio::time::sleep(std::time::Duration::from_millis(1)).await;
 
             Ok("Processed data".to_string())
         }
 
-        async fn create_response(data: String) -> TestResponseType {
+        async fn create_response(data: String) -> Response {
             Response::builder()
                 .status(StatusCode::OK)
-                .header("Content-Type", "application/json")
-                .body(Full::new(Bytes::from(format!(r#"{{"result": "{}"}}"#, data))))
-                .unwrap()
+                .header("Content-Type", HeaderValue::from_static("application/json"))
+                .text(&format!(r#"{{"result": "{}"}}"#, data))
         }
 
-        // Test the chain
         let data = process_request()
             .await
             .unwrap();
-        let response: TestResponseType = create_response(data).await;
+        let response: Response = create_response(data).await;
 
-        assert_eq!(response.status(), StatusCode::OK);
+        assert_eq!(
+            response
+                .into_inner()
+                .status(),
+            StatusCode::OK
+        );
     }
 }

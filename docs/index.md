@@ -9,10 +9,7 @@ permalink: /
 <h1><b>Sofie</b></h1>
 </div>
 
-[![crates.io](https://img.shields.io/crates/v/sofie?style=flat-square)](https://crates.io/crates/sofie) 
-[![Build Status](https://github.com/ararog/sofie/actions/workflows/rust.yml/badge.svg?event=push)](https://github.com/ararog/sofie/actions/workflows/rust.yml) 
-[![Documentation](https://docs.rs/deboa/badge.svg)](https://docs.rs/deboa/latest/deboa)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Crates.io downloads](https://img.shields.io/crates/d/sofie)](https://crates.io/crates/sofie) [![crates.io](https://img.shields.io/crates/v/sofie?style=flat-square)](https://crates.io/crates/sofie) [![Build Status](https://github.com/ararog/sofie/actions/workflows/rust.yml/badge.svg?event=push)](https://github.com/ararog/sofie/actions/workflows/rust.yml) ![Crates.io MSRV](https://img.shields.io/crates/msrv/sofie) [![Documentation](https://docs.rs/sofie/badge.svg)](https://docs.rs/sofie/latest/sofie) [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ararog/sofie/blob/main/LICENSE.md)  [![codecov](https://codecov.io/gh/ararog/sofie/graph/badge.svg?token=T0HSBAPVSI)](https://codecov.io/gh/ararog/sofie)
 
 **Sofie** is a comprehensive, production-ready web framework for Rust that combines simplicity with power. Built on top of VeTiS, it provides everything you need to build modern web applications - from REST APIs to full-featured web services - with a clean, intuitive API that makes development a joy.
 

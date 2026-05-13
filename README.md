@@ -21,7 +21,7 @@
 Add Sofie to your `Cargo.toml`:
 
 ```rust
-sofie = { version = "0.1.0", features = ["vetis"] }
+sofie = { version = "0.1.0", features = ["sofie"] }
 ```
 
 ## Usage Example

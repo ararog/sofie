@@ -20,7 +20,7 @@
 
 Add Sofie to your `Cargo.toml`:
 
-```rust
+```toml
 sofie = { version = "0.1.0", features = ["sofie"] }
 ```
 
@@ -38,7 +38,7 @@ use hyper::Response;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     std_logger::Config::logfmt().init();
 
-    let mut app = App::new();
+    let mut app = App::default();
 
     app.serve(|_| async move {
         Ok(Response::new(Full::new(Bytes::from("Hello World"))))

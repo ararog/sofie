@@ -1,3 +1,5 @@
+#![doc = include_str!("../README.md")]
+#![deny(missing_docs)]
 use std::{fs::read_to_string, future::Future, path::Path};
 
 use log::error;
@@ -10,15 +12,22 @@ use vetis::{
 
 use crate::{config::Config, errors::SofieError};
 
+/// Configuration file name
 pub static CONFIG: &str = "sofie.toml";
 
+/// Configuration module
 pub mod config;
+/// Error types module
 pub mod errors;
+/// Tests module
 mod tests;
 
+/// Request type alias
 pub type Request = vetis::server::http::Request;
+/// Response type alias
 pub type Response = vetis::server::http::Response;
 
+/// Application struct
 pub struct App {
     config: Config,
     server: vetis::Vetis,
@@ -62,6 +71,7 @@ impl Default for App {
 }
 
 impl App {
+    /// Start the server with the given handler
     pub async fn serve<H, Fut>(&mut self, handler: H) -> Result<(), SofieError>
     where
         H: Fn(Request) -> Fut + Clone + Send + Sync + 'static,

@@ -1,4 +1,4 @@
-# sofie
+# Sofie
 
 **Sofie** is a comprehensive, production-ready web framework for Rust that combines simplicity with power. Built on top of VeTiS, it provides everything you need to build modern web applications - from REST APIs to full-featured web services - with a clean, intuitive API that makes development a joy.
 
@@ -9,7 +9,7 @@
 sofie = { version = "0.0.9", features = ["http1", "tokio-rt"] }
 ```
 
-## quickstart
+## Quickstart
 
 ```rust
 use sofie::App;

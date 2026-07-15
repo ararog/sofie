@@ -631,9 +631,9 @@ checksum = "92773504d58c093f6de2459af4af33faa518c13451eb8f2b5698ed3d36e7c813"
 
 [[package]]
 name = "embed-collections"
-version = "0.12.3"
+version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4b9ac53891f56267deec18b66e7775be60318278a33217268bd42bfe9ef48eb8"
+checksum = "489fe6fafc65e6b24571610064755face3e369f6d28731e9fca4290aabb20a15"
 
 [[package]]
 name = "endian-type"

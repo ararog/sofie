@@ -13,17 +13,7 @@ publish = true
 rust-version = "1.75.0"
 
 [features]
-default = ["tokio-rt", "http1", "tokio-rust-tls"]
-
-tokio-rt = ["vetis/tokio-rt"]
-smol-rt = ["vetis/smol-rt"]
-
-tokio-rust-tls = ["vetis/tokio-rust-tls"]
-smol-rust-tls = ["vetis/smol-rust-tls"]
-
-http1 = ["vetis/http1"]
-http2 = ["vetis/http2"]
-http3 = ["vetis/http3"]
+default = []
 
 [dependencies]
 bytes = "1.11.1"
@@ -34,7 +24,11 @@ hyper = { version = "1.10.1", features = ["server"] }
 hyper-util = "0.1.19"
 log = "0.4.32"
 thiserror = "2.0.18"
-vetis = { version = "0.1.4-beta.6", default-features = false}
+vetis = { version = "0.1.4-beta.7" }
+vetis-tokio = { version = "0.1.0-beta.3", features = [
+  "http2",
+  "rust-tls"
+], default-features = false }
 tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
 toml = "1.1.2"
 serde = "1.0.228"

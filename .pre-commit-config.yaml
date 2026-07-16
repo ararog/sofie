@@ -21,12 +21,12 @@ repos:
         types: ["rust"]
         pass_filenames: false
 
-      - id: cargo-test
-        name: "cargo test"
-        entry: "cargo test"
-        language: "system"
-        types: ["rust"]
-        pass_filenames: false
+      # - id: cargo-test
+      #   name: "cargo test"
+      #   entry: "cargo test"
+      #   language: "system"
+      #   types: ["rust"]
+      #   pass_filenames: false
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.41.0

@@ -1567,9 +1567,9 @@ checksum = "6ce2be8dc25455e1f91df71bfa12ad37d7af1092ae736f3a6cd0e37bc7810596"
 
 [[package]]
 name = "std-logger"
-version = "0.5.9"
+version = "0.5.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1d15412523f31a48c09ba2f0f0affa5532db6c556319a2838dae63219c72b4cb"
+checksum = "969c723ea3aad285b6c1486d249520d3e68ccf704fdbe1b34817a7ad2a095a86"
 dependencies = [
  "itoa",
  "log",

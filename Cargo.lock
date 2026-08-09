@@ -1067,7 +1067,7 @@ dependencies = [
  "quinn-udp",
  "rustc-hash",
  "rustls",
- "socket2 0.5.10",
+ "socket2",
  "thiserror",
  "tokio",
  "tracing",
@@ -1106,7 +1106,7 @@ dependencies = [
  "cfg_aliases",
  "libc",
  "once_cell",
- "socket2 0.5.10",
+ "socket2",
  "tracing",
  "windows-sys 0.52.0",
 ]
@@ -1362,16 +1362,6 @@ name = "smallvec"
 version = "1.15.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8ed6a63f02c8539c91a8685a86f4099661ba3da017932f6ebbea6de3f0fa7c90"
-
-[[package]]
-name = "socket2"
-version = "0.5.10"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e22376abed350d73dd1cd119b57ffccad95b4e585a7cda43e286245ce23c0678"
-dependencies = [
- "libc",
- "windows-sys 0.52.0",
-]
 
 [[package]]
 name = "socket2"
@@ -1638,7 +1628,7 @@ dependencies = [
  "mio",
  "pin-project-lite",
  "signal-hook-registry",
- "socket2 0.6.5",
+ "socket2",
  "tokio-macros",
  "windows-sys 0.61.2",
 ]
@@ -1872,7 +1862,7 @@ dependencies = [
  "rand",
  "serde",
  "serde_yaml_ng",
- "socket2 0.6.5",
+ "socket2",
  "thiserror",
  "time",
  "typetag",
@@ -1881,9 +1871,9 @@ dependencies = [
 
 [[package]]
 name = "vetis-tokio"
-version = "0.1.0-beta.6"
+version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "85aaf4e0edb237c7b4977ea2b1c5c4cf2708c66a46b136f12573c3a6da6011c2"
+checksum = "998b6cc5a6afd7cf73642e492710b94b8f489a3cc00d0ebc9216de584ad55b9b"
 dependencies = [
  "async-lock",
  "bytes",
@@ -1907,7 +1897,7 @@ dependencies = [
  "rustls",
  "serde",
  "serde_yaml_ng",
- "socket2 0.6.5",
+ "socket2",
  "thiserror",
  "time",
  "tokio",
